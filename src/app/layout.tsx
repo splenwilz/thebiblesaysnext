@@ -1,8 +1,38 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Lexend, Source_Sans_3, Source_Serif_4 } from 'next/font/google'
+import localFont from 'next/font/local'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  variable: '--font-inter',
+})
+const source_3 = Source_Sans_3({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  variable: '--font-source_3',
+})
+const source_serif_4 = Source_Serif_4({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  variable: '--font-source_serif_4',
+})
+const lexend = Lexend({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '700'],
+  variable: '--font-lexend',
+})
+// Font files can be colocated inside of `app`
+const source_serif_pro = localFont({
+  src: '../assets/fonts/source-serif-pro/SourceSerifPro-Regular.ttf',
+  display: 'swap',
+  variable: '--font-source_serif_pro',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +45,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html
+      lang="en"
+      className={`${source_serif_pro.variable} ${source_serif_4.variable} ${source_3.variable} ${inter.variable} ${lexend.variable} `}
+    >
+      <body>{children}</body>
     </html>
   )
 }
