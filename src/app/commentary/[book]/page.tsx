@@ -1,20 +1,18 @@
 import CommentaryNavigation from '@/components/CommentaryNavigation'
 import React from 'react'
-import BibleMenu from './biblemenu'
-import BibleLandingData from './biblelanding'
-import BibleComm from './biblecomm'
+import BibleMenu from '../biblemenu'
+import BibleLandingData from '../biblelanding'
+import BibleComm from '../biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
 
-export const metadata = {
-  title: 'Commentary | TheBibleSays.com',
-  description:
-    'The Bible begins with God creating the entire universe.In the opening sentence of the Bible, we find God creating.',
+interface CommentaryProps {
+  params: { book: string }
 }
 
-export const revalidate = 0
-
-const Commentary: React.FC = () => {
+export default async function Commentary({
+  params: { book },
+}: CommentaryProps) {
   return (
     <>
       <div className="bg-thebiblesayswhite-100 dark:bg-thebiblesaysblack-100">
@@ -25,10 +23,10 @@ const Commentary: React.FC = () => {
       <div className=" dark:bg-thebiblesaysblack-100 ">
         <div className="flex flex-row mx-auto max-w-[1440px]">
           <div className="w-full basis-auto sm:basis-1/2 lg:basis-2/3 flex flex-col">
-            <BibleMenu bookid="" />
-            <BibleLandingData bookid="" />
+            <BibleMenu bookid={book} />
+            <BibleLandingData bookid={book} />
           </div>
-          <BibleComm bookid="" />
+          <BibleComm bookid={book} />
         </div>
       </div>
       <NewsletterSignupSection
@@ -42,5 +40,3 @@ const Commentary: React.FC = () => {
     </>
   )
 }
-
-export default Commentary

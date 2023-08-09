@@ -9,8 +9,12 @@ import Map from '@/assets/icons/map.svg'
 import PlayArrow from '@/assets/icons/play_arrow.svg'
 import ViewTimeline from '@/assets/icons/view_timeline.svg'
 import Link from 'next/link'
-
-const BibleComm = async () => {
+import { getBookName, splitScripture } from '@/helper/helper'
+interface BibleCommBookProps {
+  bookid: string
+}
+const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
+  // const BibleComm = async () => {
   // let dataComm: CommentaryPost[] | null = null
   // let error: string | null = null
   // let darkThemeColor = false
@@ -43,6 +47,28 @@ const BibleComm = async () => {
 
   let darkThemeColor = false
 
+  const scriptureBook = bookid
+    ? splitScripture(bookid.replace('%2B', '+'))?.book
+    : ''
+  const bookName = getBookName(scriptureBook || '')
+  // const booknameShprt =
+  const scriptureChap = bookid
+    ? splitScripture(bookid.replace('%2B', '+'))?.chapter
+    : '1'
+  const scriptureVerse = bookid
+    ? `${splitScripture(bookid.replace('%2B', '+'))?.chapter}:${
+        splitScripture(bookid.replace('%2B', '+'))?.verse
+      }`
+    : ''
+
+  const bookAndChapter = bookid
+    ? bookid.toUpperCase().replace('+', '.').replace('%2B', '.')
+    : 'GEN.1'
+
+  const usePassage = bookid
+    ? `${scriptureBook?.toUpperCase()}.${scriptureChap}`
+    : bookAndChapter
+
   try {
     const token = 'eceded48dcbede4c15be65df261734da' // Your bearer token
     const config = {
@@ -52,7 +78,7 @@ const BibleComm = async () => {
       },
     }
     const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/GEN.1`,
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${usePassage}`,
       config,
     )
 
@@ -463,10 +489,11 @@ const BibleComm = async () => {
   return (
     <div className="hidden sm:block basis-1/2 lg:basis-2/6 w-full bg-thebiblesaysoffwhite dark:bg-thebiblesayswhite-8 p-9 border border-t-thebiblesaysblack-16 border-l-0 border-r-0">
       <div className="">
+        <h1>{bookAndChapter}</h1>
         <CommentaryTabs tabsData={ScripturesTab} />
       </div>
     </div>
   )
 }
 
-export default BibleComm
+export default BibleCommBook

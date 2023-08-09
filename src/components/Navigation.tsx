@@ -8,10 +8,13 @@ import {
 } from '@heroicons/react/24/outline'
 import logobg from '../assets/images/logo.svg'
 import logo from '../assets/images/thebiblesays.svg'
+
+import LtLogo from '@/assets/images/logo/thebiblesaysdarkmode.svg'
 import { Fragment, useState } from 'react'
 import LogoSection from '../core/LogoSection'
 import Link from 'next/link'
 import { useGenerationStore } from '@/store/tbsstore'
+import Image from 'next/image'
 
 interface NavigationItem {
   name: string
@@ -60,11 +63,12 @@ export default function Navigation() {
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center relative">
-                  <LogoSection
+                  {/* <LogoSection
                     className="custom-class"
                     logobg={logobg}
                     logo={logo}
-                  />
+                  /> */}
+                  <Image src={LtLogo} alt="The Bible Says" width={120} />
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   {/* Mobile menu button */}

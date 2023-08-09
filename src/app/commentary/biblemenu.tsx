@@ -39,6 +39,15 @@ interface Chapters {
 interface BibleMenuProps {
   bookid: string
 }
+interface ChapterData {
+  chapters: number[]
+}
+interface Verse {
+  post_id: number
+  post_title: string
+  slug: string
+  verse_ranges: string[]
+}
 
 export const revalidate = 0
 
@@ -53,7 +62,14 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
   const [errorChaps, setErrorChaps] = useState<string | null>(null)
   const [loadingChaps, setLoadingChaps] = useState(true)
 
-  const [selectedOption, setSelectedOption] = useState('Bible')
+  const [versesRange, setVersesRange] = useState<Verse[] | null>(null)
+  const [errorversesRange, setErrorversesRange] = useState<string | null>(null)
+  const [loadingversesRange, setLoadingversesRange] = useState(true)
+
+  const [availChaps, setAvailChaps] = useState<ChapterData | null>(null)
+  const [errorAvailChaps, setErrorAvailChaps] = useState<string | null>(null)
+  const [loadingAvailChaps, setLoadingAvailChaps] = useState(true)
+  const [selectedOption, setSelectedOption] = useState('Commentary')
 
   const [isSetting, setIsSetting] = useState(false)
 
@@ -67,10 +83,14 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
 
   const [filteredBooks, setFilteredBooks] = useState<Books[]>([])
 
-  const { darkThemeColor, setdarkThemeColor } = useGenerationStore()
+  const {
+    darkThemeColor,
+    setdarkThemeColor,
+    showVersesRange,
+    setshowVersesRange,
+  } = useGenerationStore()
 
-  // On available Chapters
-  const [usAvailChap, setUsAvailChap] = useState<string>('')
+  // const [showVersesRange, setShowVersesRange] = useState(false)
 
   const scriptureBook = bookid
     ? splitScripture(bookid.replace('%2B', '+'))?.book
@@ -89,7 +109,7 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
   const book =
     bookid === ''
       ? 'GEN'
-      : splitScripture(bookid.replace('%2B', '+'))?.book.toLocaleUpperCase()
+      : splitScripture(bookid.replace('%2B', '+'))?.book.toUpperCase()
   //   const book = 'GEN'
   const chapter = '1'
   //   const bookChapter =
@@ -99,12 +119,35 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
       ? `${scriptureBook?.toUpperCase()}.${scriptureChap}`
       : 'GEN.1',
   )
+  // On available Chapters
+  //  const [usAvailChap, setUsAvailChap] = useState<string>(
+  //   bookName ? bookName : '',
+  // )
 
   //   const { dataChaps, errorChaps, loadingChaps } = useChapters({
   //     chapterId: book ? book : '',
   //   })
 
   //   Effects
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response: AxiosResponse<ChapterData> = await axios.get(
+          `https://13.51.172.229/wp-json/tbs/v1/available-chapters?keyword=${bookName}`,
+        )
+
+        setAvailChaps(response.data)
+        setLoadingAvailChaps(false)
+        console.log(response)
+      } catch (error) {
+        setErrorAvailChaps(`Error fetching data: ${error ? error : ''}`)
+        setLoadingAvailChaps(false)
+      }
+    }
+
+    fetchData()
+  }, [bookName, scriptureChap])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -155,6 +198,28 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
 
     fetchData()
   }, [book])
+
+  // FEtching Verses
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response: AxiosResponse<Verse[]> = await axios.get(
+          `https://13.51.172.229/wp-json/tbs/v1/chapter-verses-sp/?combined_input=${bookName}%20${scriptureChap}`,
+          // 'https://13.51.172.229/wp-json/tbs/v1/chapter-verses-sp/?combined_input=Genesis%204',
+        )
+
+        setVersesRange(response.data)
+        setLoadingversesRange(false)
+      } catch (error) {
+        setErrorversesRange(`Error fetching data: ${error ? error : ''}`)
+        setLoadingversesRange(false)
+        // 07016968361
+      }
+    }
+
+    fetchData()
+  }, [bookName, scriptureChap])
 
   useEffect(() => {
     if (darkThemeColor) {
@@ -336,21 +401,68 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
           >
             <div className="font-lexend text-[12px] ml-4 uppercase py-1 font-medium dark:text-thebiblesayswhite-100">
               <div className="flex flex-row">
-                <Link href="/bible" onClick={() => setSearchValue('')}>
+                <Link href="/commentary" onClick={() => setSearchValue('')}>
                   Books
                 </Link>
                 {bookid !== '' && (
                   <>
                     <ChevronRightIcon className="w-3 mx-3" />
-                    <Link href="" onClick={(e) => e.preventDefault()}>
-                      Chapter
+                    <Link
+                      href=""
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setshowVersesRange(false)
+                      }}
+                    >
+                      NUMBERS
                     </Link>
+                    {showVersesRange && (
+                      <>
+                        <ChevronRightIcon className="w-3 mx-3" />
+                        <Link href="" onClick={(e) => e.preventDefault()}>
+                          CHAPTER {scriptureChap}
+                        </Link>
+                      </>
+                    )}
                   </>
                 )}
               </div>
             </div>
             <div className="border border-t-0 border-l-0 border-r-0 dark:border-thebiblesayswhite-8"></div>
-            {bookid !== '' ? (
+            {showVersesRange && (
+              <div className="max-h-64 overflow-scroll mt-3">
+                <div>
+                  {showVersesRange &&
+                    versesRange &&
+                    versesRange?.length > 0 &&
+                    versesRange?.map((verses, index) => (
+                      <Link
+                        key={index}
+                        // href={verses.slug}
+                        href={
+                          bookid
+                            ? `./${scriptureBook}+${verses.verse_ranges[0].replace(
+                                ':',
+                                '.',
+                              )}`
+                            : verses.slug
+                        }
+                        className=" block tracking-wide px-4 py-2 ml-1 mr-1 font-lexend text-[15px] text-thebiblesaysblack-100 hover:bg-[#10101014] dark:hover:bg-thebiblesayswhite-8 dark:hover:text-gray-300"
+                        role="menuitem"
+                        onClick={() => {
+                          setSearchValue(verses.post_title)
+                          // setUsAvailChap(book)
+                          // alert(usAvailChap)
+                        }}
+                      >
+                        {verses.verse_ranges[0]}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            )}
+
+            {!showVersesRange && bookid !== '' ? (
               <div className="max-h-64 overflow-scroll pt-5">
                 {/* {dataChaps?.data[0].reference} */}
                 <Link
@@ -360,7 +472,7 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
                   Book Overview
                 </Link>
                 <div className="grid grid-cols-5 grid-flow-row mt-3">
-                  {dataChaps?.data.slice(1).map((chap, index) => (
+                  {/* {dataChaps?.data.slice(1).map((chap, index) => (
                     <Link
                       key={index}
                       className={`font-lexend  text-[15px] pl-5 py-3 font-medium ${
@@ -369,32 +481,77 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
                       href={`./${chap.bookId.toLowerCase()}+${chap.number}`}
                       onClick={() => {
                         setSearchValue(chap.reference)
+                        // setShowVersesRange(true)
+                        setshowVersesRange(true)
                         setIsSearching(false)
                         // setCommentary(`${chap.reference}`)
                       }}
                     >
                       {chap.number}
                     </Link>
-                  ))}
+                  ))} */}
+                  {dataChaps?.data.slice(1).map((chap, index) => {
+                    const chapterNumber = parseInt(chap.number)
+                    const currentChapter = parseInt(chapter)
+
+                    const isAvailable =
+                      availChaps?.chapters.includes(chapterNumber)
+
+                    return (
+                      <Link
+                        key={index}
+                        className={`font-lexend  text-[15px] pl-5 py-3 font-medium ${
+                          currentChapter === chapterNumber
+                            ? 'bg-thebiblesaysblack-8'
+                            : ''
+                        } ${
+                          isAvailable
+                            ? 'text-thebiblesaysblack-100'
+                            : 'text-thebiblesaysblack-40'
+                        }  dark:text-thebiblesayswhite-100 cursor-pointer`}
+                        href={
+                          isAvailable
+                            ? `./${chap.bookId.toLowerCase()}+${chap.number}`
+                            : '#'
+                        }
+                        onClick={(e) => {
+                          if (isAvailable) {
+                            // e.preventDefault()
+                            setSearchValue(chap.reference)
+                            setshowVersesRange(true)
+                            // setIsSearching(false)
+                            // setCommentary(`${chap.reference}`)
+                            // setVerseRef(chap.reference)
+                            // setShowVersesRange(true)
+                          } else {
+                            e.preventDefault()
+                          }
+                        }}
+                      >
+                        {chapterNumber}
+                      </Link>
+                    )
+                  })}
                 </div>
               </div>
             ) : (
               <div className="max-h-64 overflow-scroll">
                 <div>
-                  {filteredBooks?.map((book, index) => (
-                    <Link
-                      key={index}
-                      href={`./bible/${book.id.toLowerCase()}+1`}
-                      className="block px-4 py-2 ml-1 mr-1 font-lexend text-[15px] text-gray-700 hover:bg-[#10101014] dark:hover:bg-thebiblesayswhite-8 dark:hover:text-gray-300"
-                      role="menuitem"
-                      onClick={() => {
-                        setSearchValue(book.name)
-                        setUsAvailChap(book.name)
-                      }}
-                    >
-                      {book.name}
-                    </Link>
-                  ))}
+                  {!showVersesRange &&
+                    filteredBooks?.map((book, index) => (
+                      <Link
+                        key={index}
+                        href={`./commentary/${book.id.toLowerCase()}+1`}
+                        className="block px-4 py-2 ml-1 mr-1 font-lexend text-[15px] text-gray-700 hover:bg-[#10101014] dark:hover:bg-thebiblesayswhite-8 dark:hover:text-gray-300"
+                        role="menuitem"
+                        onClick={() => {
+                          setSearchValue(book.name)
+                          // setUsAvailChap(book.name)
+                        }}
+                      >
+                        {book.name}
+                      </Link>
+                    ))}
                 </div>
               </div>
             )}

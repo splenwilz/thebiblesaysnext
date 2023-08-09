@@ -1,7 +1,13 @@
 import React from 'react'
 import CommentaryTopic from '@/core/CommentaryTopic'
-
-export default async function BibleLandingData() {
+import { getBookName, splitScripture } from '@/helper/helper'
+interface CommentaryLandingDataProps {
+  bookid: string
+}
+const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
+  bookid,
+}) => {
+  // export default async function CommentaryLandingData() {
   // let bibleChapData: BibleResponse | null = null
   // let error: string | null = null
 
@@ -40,9 +46,28 @@ export default async function BibleLandingData() {
   let error: string | null = null
   let darkThemeColor = false
 
+  const scriptureBook = bookid
+    ? splitScripture(bookid.replace('%2B', '+'))?.book
+    : ''
+  const bookName = getBookName(scriptureBook || '')
+  // const booknameShprt =
+  const scriptureChap = bookid
+    ? splitScripture(bookid.replace('%2B', '+'))?.chapter
+    : '1'
+  const scriptureVerse = bookid
+    ? `${splitScripture(bookid.replace('%2B', '+'))?.chapter}:${
+        splitScripture(bookid.replace('%2B', '+'))?.verse
+      }`
+    : ''
+
+  const bookAndChapter = bookid ? `${bookName} ${scriptureChap}` : 'Genesis 1'
+  const usePassage = scriptureVerse
+    ? `${bookName} ${scriptureVerse}`
+    : bookAndChapter
+
   try {
     const response = await fetch(
-      `https://www.thebiblesays.com/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=Genesis%201`,
+      `https://www.thebiblesays.com/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassage}`,
     )
 
     if (!response.ok) {
@@ -65,7 +90,7 @@ export default async function BibleLandingData() {
   }
 
   return (
-    <div className="max-h-[700px] overflow-scroll">
+    <div className="max-h-[1000px] overflow-scroll">
       <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
         {error ? (
           <div className="bg-thebiblesaysoffwhite">
@@ -76,6 +101,7 @@ export default async function BibleLandingData() {
         ) : dataComm && dataComm[0] ? ( // Check if dataComm is defined and contains at least one element
           <div className="">
             <div className="border border-t-0 border-l-0 border-r-0 border-b-[#10101029] pb-5">
+              <h1>{bookAndChapter}</h1>
               <h5
                 className="font-lexend font-extrabold text-2xl dark:text-thebiblesayswhite-100"
                 dangerouslySetInnerHTML={{
@@ -107,3 +133,5 @@ export default async function BibleLandingData() {
     </div>
   )
 }
+
+export default CommentaryLandingData

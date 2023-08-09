@@ -3,6 +3,9 @@ import LogoSection from '../core/LogoSection'
 
 import logobg from '../assets/images/logo.svg'
 import logo from '../assets/images/thebiblesays.svg'
+import Image from 'next/image'
+
+import LtLogo from '@/assets/images/logo/thebiblesaysdarkmode.svg'
 import Dropdown from '../core/Dropdown'
 import FooterLinksSection from './FooterLinksSection'
 
@@ -20,7 +23,8 @@ const FooterSection: React.FC<FooterSectionProps> = ({ className }) => {
         <footer className="grid md:grid-cols-2 pt-20 pb-1 justify-center">
           <div className="basis-1/2 h-100 flex flex-col ">
             <div className="flex flex-row space-x-2 justify-center md:justify-start">
-              <LogoSection className="" logobg={logobg} logo={logo} />
+              {/* <LogoSection className="" logobg={logobg} logo={logo} /> */}
+              <Image src={LtLogo} alt="The Bible Says" width={120} />
             </div>
             <div className="flex mt-12 mb-12">
               <div className="flex mr-4 mt-3 w-38 p-3 border border-stone-300 cursor-pointer h-10 bg-black text-white rounded-md items-center justify-center">
