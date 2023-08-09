@@ -12,7 +12,7 @@ export default async function FooterLinksSection() {
   // }
   try {
     const response = await fetch(
-      `${process.env.baseURL}/wp-json/rae/v1/header-footer?header_location_id=hcms-menu-header&footer_location_id=hcms-menu-footer`,
+      'https://www.thebiblesays.com/wp-json/rae/v1/header-footer?header_location_id=hcms-menu-header&footer_location_id=hcms-menu-footer',
     )
 
     if (!response.ok) {
