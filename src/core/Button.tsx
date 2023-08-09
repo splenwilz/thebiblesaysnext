@@ -9,7 +9,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({ className, onClick, children }) => {
   return (
     <button
-      className={`bg-thebiblesaysorange text-thebiblesaysblack-100 px-8 py-[12px] text-center text-xs font-bold font-lexend justify-self-center ${className}`}
+      className={`bg-thebiblesaysorange text-thebiblesaysblack-100 px-8 py-7 text-center text-xs font-bold font-lexend justify-self-center ${className}`}
       onClick={onClick}
     >
       {children}

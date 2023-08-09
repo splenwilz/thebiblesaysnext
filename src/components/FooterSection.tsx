@@ -82,12 +82,12 @@ const FooterSection: React.FC<FooterSectionProps> = ({ className }) => {
             © {currentYear} The Bible Says, All Rights Reserved.
           </p>
           <div className="grid grid-cols-1 gap-2 justify-between md:justify-center">
-            <div className="flex flex-row space-x-2 justify-center md:justify-end">
+            {/* <div className="flex flex-row space-x-2 justify-center md:justify-end">
               <p className="font-lexend text-xs text-thebiblesayswhite-64">
                 Language:
               </p>
               <Dropdown className="-mt-1" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

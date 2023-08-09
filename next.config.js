@@ -15,6 +15,18 @@ module.exports = {
         port: '',
         pathname: '/wp-content/uploads/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'thebiblesays.com',
+        port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '13.51.172.229',
+        port: '',
+        pathname: '**',
+      },
     ],
   },
 }

@@ -41,9 +41,16 @@ const AboutCardSection: React.FC<AboutCardSectionProps> = ({
             {description}
           </p>
           <Link href="/about" className="">
-            <Button className="mt-8  md:ml-0 px-18 py-[17px] text-[15px]">
+            <button
+              className="bg-thebiblesaysorange text-thebiblesaysblack-100 px-8 py-4 mt-2 text-center text-xs font-bold font-lexend justify-self-center"
+              // onClick={onClick}
+            >
               {buttonLabel}
-            </Button>
+            </button>
+
+            {/* <Button className="mt-8  md:ml-0 py-[17px] text-[15px]">
+              {buttonLabel}
+            </Button> */}
           </Link>
         </div>
         <div className="basis-1/2 pt-12 md:pt-0">

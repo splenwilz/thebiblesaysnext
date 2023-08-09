@@ -489,7 +489,6 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
   return (
     <div className="hidden sm:block basis-1/2 lg:basis-2/6 w-full bg-thebiblesaysoffwhite dark:bg-thebiblesayswhite-8 p-9 border border-t-thebiblesaysblack-16 border-l-0 border-r-0">
       <div className="">
-        <h1>{bookAndChapter}</h1>
         <CommentaryTabs tabsData={ScripturesTab} />
       </div>
     </div>

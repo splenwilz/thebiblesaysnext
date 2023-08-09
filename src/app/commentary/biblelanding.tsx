@@ -101,7 +101,6 @@ const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
         ) : dataComm && dataComm[0] ? ( // Check if dataComm is defined and contains at least one element
           <div className="">
             <div className="border border-t-0 border-l-0 border-r-0 border-b-[#10101029] pb-5">
-              <h1>{bookAndChapter}</h1>
               <h5
                 className="font-lexend font-extrabold text-2xl dark:text-thebiblesayswhite-100"
                 dangerouslySetInnerHTML={{
