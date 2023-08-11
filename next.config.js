@@ -16,13 +16,19 @@ module.exports = {
         pathname: '/wp-content/uploads/**',
       },
       {
+        protocol: 'https',
+        hostname: '13.51.172.229',
+        port: '',
+        pathname: '/wp-content/uploads/**',
+      },
+      {
         protocol: 'http',
         hostname: 'thebiblesays.com',
         port: '',
         pathname: '**',
       },
       {
-        protocol: 'http',
+        protocol: 'https',
         hostname: '13.51.172.229',
         port: '',
         pathname: '**',

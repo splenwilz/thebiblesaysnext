@@ -3,6 +3,7 @@ interface CommentaryPost {
   post_title: string
   post_content: string
   post_excerpt: string
+  category_slug: string
 }
 
 interface useCommentaryProps {

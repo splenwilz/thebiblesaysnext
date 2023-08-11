@@ -49,7 +49,7 @@ export default function RootLayout({
       lang="en"
       className={`${source_serif_pro.variable} ${source_serif_4.variable} ${source_3.variable} ${inter.variable} ${lexend.variable} `}
     >
-      <body>{children}</body>
+      <body id="tbs">{children}</body>
     </html>
   )
 }

@@ -1,0 +1,33 @@
+/* Scrollbar container */
+.scroll-container {
+  max-height: 40px;
+  overflow-y: scroll;
+  max-width: 800pxs;
+}
+
+/* For WebKit-based browsers (Chrome, Safari) */
+.scroll-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* For Firefox and newer versions of Edge */
+.scroll-container.scrollbar {
+  scrollbar-width: thin;
+  width: 100px;
+}
+
+.scroll-container.scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.scroll-container.scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}

@@ -5,6 +5,7 @@ import BibleLandingData from './biblelanding'
 import BibleComm from './biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
+import CommModal from './modal'
 
 export const metadata = {
   title: 'Commentary | TheBibleSays.com',
@@ -12,7 +13,7 @@ export const metadata = {
     'The Bible begins with God creating the entire universe.In the opening sentence of the Bible, we find God creating.',
 }
 
-export const revalidate = 0
+// export const revalidate = 0
 
 const Commentary: React.FC = () => {
   return (
@@ -26,6 +27,8 @@ const Commentary: React.FC = () => {
         <div className="flex flex-row mx-auto max-w-[1440px]">
           <div className="w-full basis-auto sm:basis-1/2 lg:basis-2/3 flex flex-col">
             <BibleMenu bookid="" />
+
+            <CommModal bookid="" />
             <BibleLandingData bookid="" />
           </div>
           <BibleComm bookid="" />

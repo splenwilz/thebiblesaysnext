@@ -168,3 +168,22 @@ export function splitScripture(scripture: string): ScriptureParts | null {
     verse,
   }
 }
+
+export function extractVideoLink(input: string): string | null {
+  const match = input.match(/src="([^"]+)"/)
+  if (match && match.length >= 2) {
+    const srcLink = match[1]
+    if (srcLink.includes('youtube.com') || srcLink.includes('youtu.be')) {
+      return srcLink
+    }
+  }
+  return null
+}
+
+export function extractStringBeforeHyphen(inputString: string): string | null {
+  const parts = inputString.split('-')
+  if (parts.length > 1) {
+    return parts[0]
+  }
+  return inputString
+}

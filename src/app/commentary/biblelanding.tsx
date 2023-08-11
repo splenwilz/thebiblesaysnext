@@ -67,7 +67,7 @@ const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
 
   try {
     const response = await fetch(
-      `https://www.thebiblesays.com/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassage}`,
+      `http://13.51.172.229/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassage}`,
     )
 
     if (!response.ok) {
@@ -83,14 +83,19 @@ const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
     return (
       <div className="bg-thebiblesaysoffwhite">
         <div className=" mx-auto max-w-[1440px] h-full pb-24 px-7 md:px-10 lg:px-40">
-          <div className="mt-8 text-center text-red-600">{error}</div>
+          <div className="mt-8 text-center text-red-600">
+            {error} {usePassage}
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="max-h-[1000px] overflow-scroll">
+    <div
+      className="max-h-[1000px] overflow-scroll"
+      style={{ scrollbarWidth: 'none' }}
+    >
       <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
         {error ? (
           <div className="bg-thebiblesaysoffwhite">
@@ -115,7 +120,7 @@ const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
               />
             </div>
             <div
-              className="font-serifpro dark:text-thebiblesayswhite-100 text-xl leading-10"
+              className="font-serifpro dark:text-thebiblesayswhite-100 text-[17px] leading-9"
               dangerouslySetInnerHTML={{
                 __html: dataComm[0].post_content || '', // Use empty string as a fallback
               }}

@@ -40,7 +40,7 @@ interface BibleMenuProps {
   bookid: string
 }
 
-export const revalidate = 0
+// export const revalidate = 0
 
 const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
   // const BibleMenu = () => {

@@ -17,7 +17,7 @@ export const metadata = {
     'Delve into the meat of God&#039;s Word by reading our Tough Topics Explained articles',
 }
 
-export const revalidate = 0
+// export const revalidate = 0
 
 const ToughTopicsServer = () => {
   return (

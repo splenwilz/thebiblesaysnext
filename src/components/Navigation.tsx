@@ -14,6 +14,7 @@ import { Fragment, useState } from 'react'
 import LogoSection from '../core/LogoSection'
 import Link from 'next/link'
 import { useGenerationStore } from '@/store/tbsstore'
+import { useParams, usePathname } from 'next/navigation'
 import Image from 'next/image'
 
 interface NavigationItem {
@@ -51,6 +52,8 @@ export default function Navigation() {
     )
   }
 
+  const pathname = usePathname()
+
   // const { isLoading, setIsLoading } = useGenerationStore()
   // setIsLoading(true)
   // console.log(isLoading)
@@ -68,7 +71,9 @@ export default function Navigation() {
                     logobg={logobg}
                     logo={logo}
                   /> */}
-                  <Image src={LtLogo} alt="The Bible Says" width={120} />
+                  <Link href={pathname === '/about' ? '../' : ''}>
+                    <Image src={LtLogo} alt="The Bible Says" width={120} />
+                  </Link>
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   {/* Mobile menu button */}

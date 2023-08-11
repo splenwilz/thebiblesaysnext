@@ -43,6 +43,7 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
   //   )
   // }
   let bibleChapData: BibleResponse | null = null
+  let dataComm: CommentaryPost[] | null = null
   let error: string | null = null
 
   let darkThemeColor = false
@@ -69,6 +70,12 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
     ? `${scriptureBook?.toUpperCase()}.${scriptureChap}`
     : bookAndChapter
 
+  const usePassageComm = scriptureVerse
+    ? `${bookName} ${scriptureVerse}`
+    : bookAndChapter
+
+  // To get Commentary / Bible Data
+
   try {
     const token = 'eceded48dcbede4c15be65df261734da' // Your bearer token
     const config = {
@@ -91,15 +98,30 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
     error = 'An error occurred while fetching data. Please try again later.'
   }
 
-  if (error) {
-    return (
-      <div className="bg-thebiblesaysoffwhite">
-        <div className=" mx-auto max-w-[1440px] h-full pb-24 px-7 md:px-10 lg:px-40">
-          <div className="mt-8 text-center text-red-600">{error}</div>
-        </div>
-      </div>
+  // To Get Passage ID and Category Slug Name
+  try {
+    const response = await fetch(
+      `http://13.51.172.229//wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassageComm}`,
     )
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch data')
+    }
+
+    dataComm = await response.json()
+  } catch (err) {
+    error = 'An error occurred while fetching data. Please try again later.'
   }
+
+  // if (error) {
+  //   return (
+  //     <div className="bg-thebiblesaysoffwhite">
+  //       <div className=" mx-auto max-w-[1440px] h-full pb-24 px-7 md:px-10 lg:px-40">
+  //         <div className="mt-8 text-center text-red-600">{error}</div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
   // const CommentaryTab = [
   //   {
   //     label: 'Commentary',
@@ -357,7 +379,14 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.post_id !== undefined
+                  ? `?booktheme=${dataComm[0]?.post_id}`
+                  : '?booktheme=1178'
+              }
+              // href="#"
             >
               Book Theme
             </Link>
@@ -381,7 +410,14 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.post_id !== undefined
+                  ? `?context=${dataComm[0]?.post_id}`
+                  : '?context=1178'
+              }
+              // href="#"
             >
               Chapter Context
             </Link>
@@ -405,7 +441,15 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.category_slug !== undefined
+                  ? `?maps=${dataComm[0]?.category_slug}`
+                  : '?maps=gen'
+              }
+
+              // dataComm ? `?maps=${dataComm[0]?.category_slug}` : ''}
             >
               Maps & Charts
             </Link>
@@ -429,7 +473,15 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.category_slug !== undefined
+                  ? `?videos=${dataComm[0]?.category_slug}`
+                  : '?videos=gen'
+
+                // dataComm ? `?videos=${dataComm[0]?.category_slug}` : ''
+              }
             >
               Videos
             </Link>
@@ -453,7 +505,13 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.post_id !== undefined
+                  ? `?download=${dataComm[0]?.post_id}`
+                  : '?download=1178'
+              }
             >
               Download Commentary
             </Link>

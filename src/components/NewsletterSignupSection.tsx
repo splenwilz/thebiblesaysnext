@@ -1,4 +1,7 @@
+'use client'
 import React from 'react'
+import MailchimpSubscribe from 'react-mailchimp-subscribe'
+import NewsLetter from './NewsLetter'
 
 interface NewsletterSignupSectionProps {
   className?: string
@@ -6,6 +9,13 @@ interface NewsletterSignupSectionProps {
   // onInputChange: (value: string) => void
   // onSubscribeClick: () => void
 }
+
+const API = '9258a1a7e0d5430c2ce7aaee26dd3831-us21'
+
+const url =
+  'https://thebiblesays.us21.list-manage.com/subscribe/post?u=7ca26d4baf05f3ce85fb2393b&amp;id=d6a40fb024&amp;f_id=000162e1f0'
+
+const SimpleForm = () => <MailchimpSubscribe url={url} />
 
 const NewsletterSignupSection: React.FC<NewsletterSignupSectionProps> = ({
   className,
@@ -22,9 +32,32 @@ const NewsletterSignupSection: React.FC<NewsletterSignupSectionProps> = ({
               Sign Up for TBS Updates
             </h4>
           </div>
+
+          {/* <MailchimpSubscribe
+            url={url}
+            render={({ subscribe, status, message }) => (
+              <div>
+                <SimpleForm onSubmitted={(formData) => subscribe(formData)} />
+                {status === 'sending' && (
+                  <div style={{ color: 'blue' }}>sending...</div>
+                )}
+                {status === 'error' && (
+                  <div
+                    style={{ color: 'red' }}
+                    dangerouslySetInnerHTML={{ __html: message }}
+                  />
+                )}
+                {status === 'success' && (
+                  <div style={{ color: 'green' }}>Subscribed !</div>
+                )}
+              </div>
+            )}
+          /> */}
           <div className=" h-100">
             <div className="flex justify-end mb-4">
-              <input
+              <NewsLetter />
+              {/* <MailchimpSubscribe url={url} /> */}
+              {/* <input
                 type="text"
                 placeholder={placeholder}
                 className="w-52 min-[360]:w-60 px-4 py-3 md:text-thebiblesaysblack-40 text-thebiblesaysblack-100 text-lg md:text-sm bg-thebiblesayswhite-100 focus:outline-none"
@@ -36,7 +69,7 @@ const NewsletterSignupSection: React.FC<NewsletterSignupSectionProps> = ({
                 // onClick={onSubscribeClick}
               >
                 Subscribe
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

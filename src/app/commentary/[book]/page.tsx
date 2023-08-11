@@ -5,10 +5,13 @@ import BibleLandingData from '../biblelanding'
 import BibleComm from '../biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
+import CommModal from '../modal'
 
 interface CommentaryProps {
   params: { book: string }
 }
+
+// export const revalidate = 1
 
 export default async function Commentary({
   params: { book },
@@ -24,6 +27,7 @@ export default async function Commentary({
         <div className="flex flex-row mx-auto max-w-[1440px]">
           <div className="w-full basis-auto sm:basis-1/2 lg:basis-2/3 flex flex-col">
             <BibleMenu bookid={book} />
+            <CommModal bookid={book} />
             <BibleLandingData bookid={book} />
           </div>
           <BibleComm bookid={book} />
