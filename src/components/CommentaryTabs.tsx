@@ -32,7 +32,7 @@ const CommentaryTabs: React.FC<CommentaryTabsProps> = ({ tabsData }) => {
           )
         })}
       </div>
-      <div className="py-4 pr-9 max-h-[1000px] overflow-scroll">
+      <div className="py-4 pr-9 max-h-[1000px] overflow-y-scroll">
         <div>{tabsData[activeTabIndex].content}</div>
       </div>
     </div>

@@ -348,7 +348,7 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
             </div>
             <div className="border border-t-0 border-l-0 border-r-0 dark:border-thebiblesayswhite-8"></div>
             {bookid !== '' ? (
-              <div className="max-h-64 overflow-scroll pt-5">
+              <div className="max-h-64 overflow-y-scroll pt-5">
                 {/* {dataChaps?.data[0].reference} */}
                 <Link
                   href={`${dataChaps?.data[0].bookId}&chapter=${dataChaps?.data[0].number}`}
@@ -376,7 +376,7 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
                 </div>
               </div>
             ) : (
-              <div className="max-h-64 overflow-scroll">
+              <div className="max-h-64 overflow-y-scroll">
                 <div>
                   {filteredBooks?.map((book, index) => (
                     <Link

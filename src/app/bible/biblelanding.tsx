@@ -38,7 +38,7 @@ export default async function BibleLandingData() {
   }
 
   return (
-    <div className="max-h-[700px] overflow-scroll">
+    <div className="max-h-[700px] overflow-y-scroll">
       <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
         <div className="">
           {/* 

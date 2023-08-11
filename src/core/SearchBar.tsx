@@ -100,7 +100,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           />
         </button>
       </div>
-      {isSearching && (
+      {/* {isSearching && (
         <div
           className="mt-0 ml-0 md:ml-0 block absolute bg-thebiblesayswhite-100 dark:bg-thebiblesaysblack-100 w-72 dark:text-thebiblesayswhite-100 text-sm border dark:border-thebiblesayswhite-8 dark:focus:ring-thebiblesaysblack-40 dark:focus:border-thebiblesaysblack-40"
           // onBlur={h}
@@ -112,7 +112,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </div>
           <div className="border border-t-0 border-l-0 border-r-0 dark:border-thebiblesayswhite-8"></div>
 
-          <div className="max-h-64 overflow-scroll w-full">
+          <div className="max-h-64 overflow-y-scroll w-full">
             <div>
               {commRes &&
                 commRes?.map((comm, index) => (
@@ -132,7 +132,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   )
 }

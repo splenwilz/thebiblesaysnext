@@ -58,7 +58,7 @@ export default async function BibleLandingServer({
             <BibleMenu bookid={book} />
             {/* <BibleLandingData /> */}
             {bibleChapData ? (
-              <div className="max-h-[700px] overflow-scroll">
+              <div className="max-h-[700px] overflow-y-scroll">
                 <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
                   <div className="">
                     {/* 
@@ -81,7 +81,7 @@ export default async function BibleLandingServer({
                 </div>
               </div>
             ) : (
-              <div className="max-h-full overflow-scroll">
+              <div className="max-h-full overflow-y-scroll">
                 <div>
                   <div className=" mx-auto max-w-full h-full pb-24 px-7 md:px-10 lg:px-40">
                     <div className="mt-8 text-center text-red-600">{error}</div>

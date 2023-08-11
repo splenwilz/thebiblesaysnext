@@ -93,7 +93,7 @@ const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
 
   return (
     <div
-      className="max-h-[1000px] overflow-scroll"
+      className="max-h-[1000px] overflow-y-scroll"
       style={{ scrollbarWidth: 'none' }}
     >
       <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
