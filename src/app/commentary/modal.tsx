@@ -14,7 +14,7 @@ import Image from 'next/image'
 import ReactPlayer from 'react-player'
 import { DocumentArrowDownIcon } from '@heroicons/react/20/solid'
 // import {  } from 'next/router'
-Modal.setAppElement('#tbs')
+// Modal.setAppElement('#tbs')
 
 interface CommModalProps {
   bookid: string

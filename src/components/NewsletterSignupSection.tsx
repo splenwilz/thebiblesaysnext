@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import MailchimpSubscribe from 'react-mailchimp-subscribe'
 import NewsLetter from './NewsLetter'
 
 interface NewsletterSignupSectionProps {
@@ -9,13 +8,6 @@ interface NewsletterSignupSectionProps {
   // onInputChange: (value: string) => void
   // onSubscribeClick: () => void
 }
-
-const API = '9258a1a7e0d5430c2ce7aaee26dd3831-us21'
-
-const url =
-  'https://thebiblesays.us21.list-manage.com/subscribe/post?u=7ca26d4baf05f3ce85fb2393b&amp;id=d6a40fb024&amp;f_id=000162e1f0'
-
-const SimpleForm = () => <MailchimpSubscribe url={url} />
 
 const NewsletterSignupSection: React.FC<NewsletterSignupSectionProps> = ({
   className,
