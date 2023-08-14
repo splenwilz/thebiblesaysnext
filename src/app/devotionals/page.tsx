@@ -6,6 +6,7 @@ import yellowballon from '@/assets/images/devotionals/yellowballon.jpg'
 import FooterSection from '@/components/FooterSection'
 import Button from '@/core/Button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Devotionals: React.FC = () => {
   return (
@@ -29,9 +30,11 @@ const Devotionals: React.FC = () => {
               practical, and easy to understand.
             </p>
           </div>
-          <Button className="mt-12  md:ml-0 py-[17px] text-[15px] w-40">
-            View Devotionals
-          </Button>
+          <Link href="https://yellowballoons.net/devotionals/" target="_blank">
+            <Button className="mt-12  md:ml-0 py-[17px] text-[15px] w-40">
+              View Devotionals
+            </Button>
+          </Link>
         </div>
         <div className="w-full mt-16 md:mt-2  px-0 lg:px-0">
           <Image src={yellowballon} alt="" className="w-full" />

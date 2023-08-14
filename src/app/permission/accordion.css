@@ -1,0 +1,22 @@
+/* Add smooth transition to the accordion header */
+.accordion-header {
+  transition: background-color 0.3s ease;
+}
+
+/* Adjust styling for active accordion header */
+.accordion-header.active {
+  background-color: #f0f0f0;
+}
+
+/* Smooth animation for opening and closing the accordion */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.accordion-content.open {
+  max-height: 1000px;
+  opacity: 1;
+}

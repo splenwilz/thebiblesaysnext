@@ -25,7 +25,7 @@ const GridSection: React.FC<GridSectionProps> = ({ items }) => {
         <Link
           key={index}
           className="bg-thebiblesaysoffwhite p-10"
-          href={`./timeline2/${item.link}`}
+          href={`./timeline/${item.link}`}
         >
           <h6 className="font-lexend font-extrabold text-xl">{item.title}</h6>
           <p className="mt-5 font-serifpro">{item.description}</p>

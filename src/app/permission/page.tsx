@@ -35,10 +35,12 @@ export default function Permission() {
         </div>
       </div>
 
-      <Accordion />
+      <div className="mx-auto mt-5 mb-5">
+        <Accordion />
+      </div>
 
       <NewsletterSignupSection
-        className="px-7 lg:px-40 md:px-7  -mt-2 mb:mt-0"
+        className="px-7 lg:px-40 md:px-7 -mt-2 mb:mt-0"
         placeholder="Enter your Email"
       />
       <FooterSection className="px-7 lg:px-40 md:px-7" />
