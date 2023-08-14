@@ -129,15 +129,32 @@ import Map from '@/assets/icons/map.svg'
 import PlayArrow from '@/assets/icons/play_arrow.svg'
 import ViewTimeline from '@/assets/icons/view_timeline.svg'
 import Link from 'next/link'
+import { getBookName, splitScripture } from '@/helper/helper'
 
-const BibleComm = async () => {
+interface BibleCommProps {
+  book: string
+}
+
+const BibleComm: React.FC<BibleCommProps> = async ({ book }) => {
   let dataComm: CommentaryPost[] | null = null
   let error: string | null = null
   let darkThemeColor = false
 
+  const scriptureBook = book
+    ? splitScripture(book.replace('%2B', '+'))?.book
+    : ''
+  const bookName = getBookName(scriptureBook || '')
+  // const booknameShprt =
+  const scriptureChap = book
+    ? splitScripture(book.replace('%2B', '+'))?.chapter
+    : '1'
+
+  const usePassage =
+    book !== '' ? `${bookName}%20${scriptureChap}` : 'Genesis%201'
+
   try {
     const response = await fetch(
-      `https://www.thebiblesays.com/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=Genesis%201`,
+      `https://www.thebiblesays.com/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassage}`,
     )
 
     if (!response.ok) {
@@ -231,7 +248,13 @@ const BibleComm = async () => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.post_id !== undefined
+                  ? `?booktheme=${dataComm[0]?.post_id}`
+                  : '?booktheme=1178'
+              }
             >
               Book Theme
             </Link>
@@ -255,7 +278,13 @@ const BibleComm = async () => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.post_id !== undefined
+                  ? `?context=${dataComm[0]?.post_id}`
+                  : '?context=1178'
+              }
             >
               Chapter Context
             </Link>
@@ -279,7 +308,13 @@ const BibleComm = async () => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.category_slug !== undefined
+                  ? `?maps=${dataComm[0]?.category_slug}`
+                  : '?maps=gen'
+              }
             >
               Maps & Charts
             </Link>
@@ -303,7 +338,15 @@ const BibleComm = async () => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.category_slug !== undefined
+                  ? `?videos=${dataComm[0]?.category_slug}`
+                  : '?videos=gen'
+
+                // dataComm ? `?videos=${dataComm[0]?.category_slug}` : ''
+              }
             >
               Videos
             </Link>
@@ -327,7 +370,13 @@ const BibleComm = async () => {
             )}
             <Link
               className="font-lexend text-[15px] pl-4 dark:text-thebiblesayswhite-100"
-              href="#"
+              href={
+                dataComm &&
+                dataComm?.length > 0 &&
+                dataComm[0]?.post_id !== undefined
+                  ? `?download=${dataComm[0]?.post_id}`
+                  : '?download=1178'
+              }
             >
               Download Commentary
             </Link>

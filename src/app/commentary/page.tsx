@@ -6,6 +6,7 @@ import BibleComm from './biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
 import CommModal from './modal'
+import CommentaryLandingDataCopy from './biblelanding copy'
 
 export const metadata = {
   title: 'Commentary | TheBibleSays.com',
@@ -29,7 +30,7 @@ const Commentary: React.FC = () => {
             <BibleMenu bookid="" />
 
             <CommModal bookid="" />
-            <BibleLandingData bookid="" />
+            <CommentaryLandingDataCopy bookid="" />
           </div>
           <BibleComm bookid="" />
         </div>

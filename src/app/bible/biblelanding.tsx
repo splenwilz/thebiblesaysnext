@@ -1,9 +1,24 @@
 import React from 'react'
 import CommentaryTopic from '@/core/CommentaryTopic'
-
-export default async function BibleLandingData() {
+import { getBookName, splitScripture } from '@/helper/helper'
+interface BibleLandingDataProps {
+  book: string
+}
+const BibleLandingData: React.FC<BibleLandingDataProps> = async ({ book }) => {
+  // export default async function BibleLandingData() {
   let bibleChapData: BibleResponse | null = null
   let error: string | null = null
+
+  const scriptureBook = book
+    ? splitScripture(book.replace('%2B', '+'))?.book
+    : ''
+
+  const scriptureChap = book
+    ? splitScripture(book.replace('%2B', '+'))?.chapter
+    : '1'
+  const useBook = book
+    ? `${scriptureBook?.toUpperCase()}.${scriptureChap}`
+    : 'GEN.1'
 
   try {
     const token = 'eceded48dcbede4c15be65df261734da' // Your bearer token
@@ -14,7 +29,7 @@ export default async function BibleLandingData() {
       },
     }
     const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/GEN.1`,
+      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${useBook}`,
       config,
     )
 
@@ -46,6 +61,7 @@ export default async function BibleLandingData() {
                 1. Scrolling to the end of a chapter, fetches another chapter and updates the Commentary
                  */}
           <div className="pb-5">
+            {/* {useBook} */}
             <h5 className="font-lexend font-extrabold text-2xl dark:text-thebiblesayswhite-100 mb-3">
               {bibleChapData?.data.reference}
             </h5>
@@ -62,3 +78,5 @@ export default async function BibleLandingData() {
     </div>
   )
 }
+
+export default BibleLandingData

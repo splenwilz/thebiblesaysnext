@@ -120,7 +120,7 @@ const CommentaryLandingData: React.FC<CommentaryLandingDataProps> = async ({
               />
             </div>
             <div
-              className="font-serifpro dark:text-thebiblesayswhite-100 text-[17px] leading-9"
+              className={`font-serifpro dark:text-thebiblesayswhite-100 text-[17px] leading-9 `}
               dangerouslySetInnerHTML={{
                 __html: dataComm[0].post_content || '', // Use empty string as a fallback
               }}

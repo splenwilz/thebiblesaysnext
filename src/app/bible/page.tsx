@@ -5,6 +5,8 @@ import BibleLandingData from './biblelanding'
 import BibleComm from './biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
+import BibleLandingDataCopy from './biblelanding copy'
+import BibleResourceModal from './modal'
 
 const BibleLanding: React.FC = () => {
   return (
@@ -18,9 +20,13 @@ const BibleLanding: React.FC = () => {
         <div className="flex flex-row mx-auto max-w-[1440px]">
           <div className="w-full basis-auto sm:basis-1/2 lg:basis-2/3 flex flex-col">
             <BibleMenu bookid="" />
-            <BibleLandingData />
+            {/* Server Rendering */}
+            {/* <BibleLandingData book="" /> */}
+            {/* Client Rendering */}
+            <BibleResourceModal bookid="" />
+            <BibleLandingDataCopy book="GEN.1" />
           </div>
-          <BibleComm />
+          <BibleComm book="" />
         </div>
       </div>
       <NewsletterSignupSection

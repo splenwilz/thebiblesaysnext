@@ -5,7 +5,9 @@ import BibleLandingData from '../biblelanding'
 import BibleComm from '../biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
-import BibleCommBook from './biblecomm'
+// import BibleCommBook from './biblecomm'
+import BibleLandingDataCopy from '../biblelanding copy'
+import BibleResourceModal from '../modal'
 
 interface BibleLandingServerProps {
   params: { book: string }
@@ -15,35 +17,35 @@ export default async function BibleLandingServer({
   params: { book },
 }: BibleLandingServerProps) {
   // const BibleLandingServer: React.FC = () => {
-  let bibleChapData: BibleResponse | null = null
-  let error: string | null = null
-  console.log(book.toUpperCase().replace('+', '.'))
+  // let bibleChapData: BibleResponse | null = null
+  // let error: string | null = null
+  // console.log(book.toUpperCase().replace('+', '.'))
 
-  try {
-    const token = 'eceded48dcbede4c15be65df261734da' // Your bearer token
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'api-key': '46f2fe8179dd1be84374cc2b0c5f7930',
-      },
-    }
-    const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${book
-        .toUpperCase()
-        .replace('+', '.')
-        .replace('%2B', '.')}`,
-      config,
-    )
+  // try {
+  //   const token = 'eceded48dcbede4c15be65df261734da' // Your bearer token
+  //   const config = {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       'api-key': '46f2fe8179dd1be84374cc2b0c5f7930',
+  //     },
+  //   }
+  //   const response = await fetch(
+  //     `https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-01/chapters/${book
+  //       .toUpperCase()
+  //       .replace('+', '.')
+  //       .replace('%2B', '.')}`,
+  //     config,
+  //   )
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch data')
-    }
+  //   if (!response.ok) {
+  //     throw new Error('Failed to fetch data')
+  //   }
 
-    bibleChapData = await response.json()
-  } catch (err) {
-    error =
-      'An error occurred while retrieving the data. Please attempt again later. Alternatively, its possible that the resource does not exist. Kindly verify and confirm this.'
-  }
+  //   bibleChapData = await response.json()
+  // } catch (err) {
+  //   error =
+  //     'An error occurred while retrieving the data. Please attempt again later. Alternatively, its possible that the resource does not exist. Kindly verify and confirm this.'
+  // }
 
   return (
     <>
@@ -56,15 +58,14 @@ export default async function BibleLandingServer({
         <div className="flex flex-row mx-auto max-w-[1440px]">
           <div className="w-full basis-auto sm:basis-1/2 lg:basis-2/3 flex flex-col">
             <BibleMenu bookid={book} />
-            {/* <BibleLandingData /> */}
-            {bibleChapData ? (
+            {/* <BibleLandingData book={book} /> */}
+            <BibleResourceModal bookid={book} />
+            <BibleLandingDataCopy book={book} />
+            {/* {bibleChapData ? (
               <div className="max-h-[700px] overflow-y-scroll">
                 <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
                   <div className="">
-                    {/* 
-                ### Points to Note:
-                1. Scrolling to the end of a chapter, fetches another chapter and updates the Commentary
-                 */}
+                  
                     <div className="pb-5">
                       <h5 className="font-lexend font-extrabold text-2xl dark:text-thebiblesayswhite-100 mb-3">
                         {bibleChapData?.data.reference}
@@ -88,12 +89,13 @@ export default async function BibleLandingServer({
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* End Bible Data */}
           </div>
           {/* <BibleComm /> */}
-          <BibleCommBook book={book} />
+          {/* <BibleCommBook book={book} /> */}
+          <BibleComm book={book} />
         </div>
       </div>
       <NewsletterSignupSection

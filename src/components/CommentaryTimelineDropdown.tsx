@@ -3,10 +3,10 @@ import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 
 interface Option {
-  id: number
-  title: string
-  date: string
-  content: string
+  // id: number
+  Headline: string
+  Year: string
+  Text: string
 }
 
 interface CommentaryTimelineDropdownProps {
@@ -15,7 +15,7 @@ interface CommentaryTimelineDropdownProps {
   dropdownContainerClass: string
   dropDownItemClass: string
   selectedOption: React.ReactNode
-  handleOptionClick: (title: string, date: string) => void
+  handleOptionClick: (Headline: string, Year: string) => void
 }
 
 const CommentaryTimelineDropdown: React.FC<CommentaryTimelineDropdownProps> = ({
@@ -32,8 +32,8 @@ const CommentaryTimelineDropdown: React.FC<CommentaryTimelineDropdownProps> = ({
     setIsOpen(!isOpen)
   }
 
-  const handleOptionItemClick = (title: string, date: string) => {
-    handleOptionClick(title, date)
+  const handleOptionItemClick = (Headline: string, Year: string) => {
+    handleOptionClick(Headline, Year)
     setIsOpen(false)
   }
 
@@ -58,15 +58,17 @@ const CommentaryTimelineDropdown: React.FC<CommentaryTimelineDropdownProps> = ({
           className={`origin-top-right absolute z-10 lg:right-0 mt-2 w-60 md:w-60 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none ${dropdownContainerClass}`}
         >
           <div className="py-1" role="none">
-            {options.slice(1).map((option) => (
+            {options.slice(1).map((option, index) => (
               <a
-                key={option.id}
+                key={index}
                 href="#"
                 className={`flex flex-row justify-between px-4 py-2 ml-1 mr-1 font-lexend text-[15px] text-gray-700 hover:bg-[#10101014] dark:hover:bg-thebiblesayswhite-8 dark:hover:text-gray-300 ${dropDownItemClass}`}
                 role="menuitem"
-                onClick={() => handleOptionItemClick(option.title, option.date)}
+                onClick={() =>
+                  handleOptionItemClick(option.Headline, option.Year)
+                }
               >
-                <span>{option.title}</span> <span>{option.date}</span>
+                <span>{option.Headline}</span> <span>{option.Year}</span>
               </a>
             ))}
           </div>

@@ -67,7 +67,14 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
 
   const [filteredBooks, setFilteredBooks] = useState<Books[]>([])
 
-  const { darkThemeColor, setdarkThemeColor } = useGenerationStore()
+  const {
+    darkThemeColor,
+    setdarkThemeColor,
+    showVersesRange,
+    setshowVersesRange,
+    fontSize,
+    setFontSize,
+  } = useGenerationStore()
 
   const scriptureBook = bookid
     ? splitScripture(bookid.replace('%2B', '+'))?.book
@@ -167,42 +174,52 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
     console.log(`Selected ${option}`)
   }
 
+  const handleMouseDown = (event: MouseEvent) => {
+    if (!(event.target as Element).closest('.issearching')) {
+      setIsSetting(false)
+    }
+  }
+  useEffect(() => {
+    if (isSetting) {
+      document.addEventListener('mousedown', handleMouseDown)
+    } else {
+      document.removeEventListener('mousedown', handleMouseDown)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown)
+    }
+  }, [isSetting])
+
   const handleTextSetting = () => {
     console.log('handling text')
-    setIsSetting(!isSetting)
+    setIsSetting(true)
   }
 
   const handleThemeSwitch = () => {
     setdarkThemeColor(!darkThemeColor)
   }
-  // On Fontsize
-  const fontSizes = [14, 16, 18, 20, 22]
-  const initialFontSizeIndex = 1
+  const fontSizes = [16, 17, 18, 20, 22]
   const minFontSizeIndex = 0
   const maxFontSizeIndex = fontSizes.length - 1
 
-  const initialFontleadingIndex = 10
+  const [fontSizeIndex, setFontSizeIndex] = useState<number>(1)
+  const [fontleadingIndex, setFontleadingIndex] = useState<number>(10)
 
-  const [fontSizeIndex, setFontSizeIndex] =
-    useState<number>(initialFontSizeIndex)
-
-  const [fontleadingIndex, setFontleadingIndex] = useState<number>(
-    initialFontleadingIndex,
-  )
-
-  const handleFontSetting = (itemNumber: number) => {
-    setActiveItem(itemNumber)
-    if (itemNumber === 1 && fontSizeIndex > minFontSizeIndex) {
-      setFontSizeIndex((index) => index - 1)
-      setFontleadingIndex((index) => index - 1)
-    } else if (itemNumber === 2 && fontSizeIndex < maxFontSizeIndex) {
-      setFontSizeIndex((index) => index + 1)
-      setFontleadingIndex((index) => index + 1)
-    } else if (itemNumber === 3 && fontSizeIndex < maxFontSizeIndex) {
-      setFontSizeIndex((index) => index + 1)
-      setFontleadingIndex((index) => index + 1)
+  const handleFontSetting = (index: number) => {
+    if (index > fontSizeIndex) {
+      setFontSizeIndex(index)
+      setFontSize(fontSizes[index])
+      setFontleadingIndex(index)
+      console.log(fontSize)
+    } else if (index < fontSizeIndex) {
+      setFontSizeIndex(index)
+      setFontSize(fontSizes[index])
+      setFontleadingIndex(index)
+      console.log(fontSize)
     }
   }
+
   const handleSearchSubmit = async (query: string) => {
     setSearchValue(query)
     if (data) {
@@ -268,49 +285,93 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
             />
           </div>
           {/* Setting for Font Size */}
-          {isSetting && (
-            <div className="z-10 mt-4 -ml-10 block absolute bg-thebiblesayswhite-100 w-52 text-sm border dark:bg-thebiblesaysblack-100 dark:border-thebiblesayswhite-8">
-              <div className="font-lexend text-[12px] ml-4 uppercase py-1 font-medium text-center dark:text-thebiblesayswhite-100 ">
-                Text Setting
+          <div className="issearching">
+            {isSetting && (
+              <div className="z-10 mt-4 -ml-10 block absolute bg-thebiblesayswhite-100 w-52 text-sm border dark:bg-thebiblesaysblack-100 dark:border-thebiblesayswhite-8">
+                <div className="font-lexend text-[12px] ml-4 uppercase py-1 font-medium text-center dark:text-thebiblesayswhite-100 ">
+                  Text Setting
+                </div>
+                <div className="border border-t-0 border-l-0 border-r-0 dark:border-b-thebiblesayswhite-8"></div>
+                <div className="flex flex-row justify-center">
+                  <div
+                    className={classNames(
+                      fontSizeIndex === 1
+                        ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+                        : 'hover:text-gray-400',
+                      'font-lexend text-[12px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+                    )}
+                    onClick={() => handleFontSetting(1)}
+                  >
+                    Aa
+                  </div>
+                  <div
+                    className={classNames(
+                      fontSizeIndex === 2
+                        ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+                        : 'hover:text-gray-400',
+                      'font-lexend text-[16px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+                    )}
+                    onClick={() => handleFontSetting(2)}
+                  >
+                    Aa
+                  </div>
+                  <div
+                    className={classNames(
+                      fontSizeIndex === 3
+                        ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+                        : 'hover:text-gray-400',
+                      'font-lexend text-[20px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+                    )}
+                    onClick={() => handleFontSetting(3)}
+                  >
+                    Aa
+                  </div>
+                </div>
               </div>
-              <div className="border border-t-0 border-l-0 border-r-0 dark:border-b-thebiblesayswhite-8"></div>
-              <div className="flex flex-row justify-center">
-                <div
-                  className={classNames(
-                    activeItem === 1
-                      ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
-                      : 'hover:text-gray-400',
-                    'font-lexend text-[12px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
-                  )}
-                  onClick={() => handleFontSetting(1)}
-                >
-                  Aa
-                </div>
-                <div
-                  className={classNames(
-                    activeItem === 2
-                      ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
-                      : 'hover:text-gray-400',
-                    'font-lexend text-[16px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
-                  )}
-                  onClick={() => handleFontSetting(2)}
-                >
-                  Aa
-                </div>
-                <div
-                  className={classNames(
-                    activeItem === 3
-                      ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
-                      : 'hover:text-gray-400',
-                    'font-lexend text-[20px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
-                  )}
-                  onClick={() => handleFontSetting(3)}
-                >
-                  Aa
-                </div>
-              </div>
-            </div>
-          )}
+
+              // <div className="z-10 mt-4 -ml-10 block absolute bg-thebiblesayswhite-100 w-52 text-sm border dark:bg-thebiblesaysblack-100 dark:border-thebiblesayswhite-8">
+              //   <div className="font-lexend text-[12px] ml-4 uppercase py-1 font-medium text-center dark:text-thebiblesayswhite-100">
+              //     Text Setting1
+              //   </div>
+              //   <div className="border border-t-0 border-l-0 border-r-0 dark:border-b-thebiblesayswhite-8"></div>
+              //   <div className="flex flex-row justify-center">
+              //     <div
+              //       className={classNames(
+              //         fontSizeIndex === 1
+              //           ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+              //           : 'hover:text-gray-400',
+              //         'font-lexend text-[12px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+              //       )}
+              //       onClick={() => handleFontSetting(0)}
+              //     >
+              //       Aa
+              //     </div>
+              //     <div
+              //       className={classNames(
+              //         fontSizeIndex === 2
+              //           ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+              //           : 'hover:text-gray-400',
+              //         'font-lexend text-[16px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+              //       )}
+              //       onClick={() => handleFontSetting(1)}
+              //     >
+              //       Aa
+              //     </div>
+              //     <div
+              //       className={classNames(
+              //         fontSizeIndex === 3
+              //           ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+              //           : 'hover:text-gray-400',
+              //         'font-lexend text-[20px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+              //       )}
+              //       onClick={() => handleFontSetting(2)}
+              //     >
+              //       Aa
+              //     </div>
+              //   </div>
+              // </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="">
@@ -411,49 +472,51 @@ const BibleMenu: React.FC<BibleMenuProps> = ({ bookid }) => {
           />
         </div>
         {/* Setting for Font Size */}
-        {isSetting && (
-          <div className="z-10 mt-4 -ml-10 block absolute bg-thebiblesayswhite-100 w-52 text-sm border dark:bg-thebiblesaysblack-100 dark:border-thebiblesayswhite-8">
-            <div className="font-lexend text-[12px] ml-4 uppercase py-1 font-medium text-center dark:text-thebiblesayswhite-100 ">
-              Text Setting
+        <div className="issearching">
+          {isSetting && (
+            <div className="z-10 mt-4 -ml-10 block absolute bg-thebiblesayswhite-100 w-52 text-sm border dark:bg-thebiblesaysblack-100 dark:border-thebiblesayswhite-8">
+              <div className="font-lexend text-[12px] ml-4 uppercase py-1 font-medium text-center dark:text-thebiblesayswhite-100 ">
+                Text Setting
+              </div>
+              <div className="border border-t-0 border-l-0 border-r-0 dark:border-b-thebiblesayswhite-8"></div>
+              <div className="flex flex-row justify-center">
+                <div
+                  className={classNames(
+                    fontSizeIndex === 1
+                      ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+                      : 'hover:text-gray-400',
+                    'font-lexend text-[12px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+                  )}
+                  onClick={() => handleFontSetting(1)}
+                >
+                  Aa
+                </div>
+                <div
+                  className={classNames(
+                    fontSizeIndex === 2
+                      ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+                      : 'hover:text-gray-400',
+                    'font-lexend text-[16px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+                  )}
+                  onClick={() => handleFontSetting(2)}
+                >
+                  Aa
+                </div>
+                <div
+                  className={classNames(
+                    fontSizeIndex === 3
+                      ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
+                      : 'hover:text-gray-400',
+                    'font-lexend text-[20px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
+                  )}
+                  onClick={() => handleFontSetting(3)}
+                >
+                  Aa
+                </div>
+              </div>
             </div>
-            <div className="border border-t-0 border-l-0 border-r-0 dark:border-b-thebiblesayswhite-8"></div>
-            <div className="flex flex-row justify-center">
-              <div
-                className={classNames(
-                  activeItem === 1
-                    ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
-                    : 'hover:text-gray-400',
-                  'font-lexend text-[12px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
-                )}
-                onClick={() => handleFontSetting(1)}
-              >
-                Aa
-              </div>
-              <div
-                className={classNames(
-                  activeItem === 2
-                    ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
-                    : 'hover:text-gray-400',
-                  'font-lexend text-[16px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
-                )}
-                onClick={() => handleFontSetting(2)}
-              >
-                Aa
-              </div>
-              <div
-                className={classNames(
-                  activeItem === 3
-                    ? 'bg-thebiblesaysblack-16 dark:bg-thebiblesayswhite-8'
-                    : 'hover:text-gray-400',
-                  'font-lexend text-[20px] py-3 px-4 font-medium text-thebiblesaysblack-100 dark:text-thebiblesayswhite-100 cursor-pointer m-1',
-                )}
-                onClick={() => handleFontSetting(3)}
-              >
-                Aa
-              </div>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )

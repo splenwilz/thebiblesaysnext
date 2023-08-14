@@ -5,6 +5,7 @@ import contributebg from '@/assets/images/contribute/contributebg.jpg'
 import FooterSection from '@/components/FooterSection'
 import Button from '@/core/Button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Contribute: React.FC = () => {
   return (
@@ -22,9 +23,14 @@ const Contribute: React.FC = () => {
               If you want to support our mission of making scripture accessible
               for everyone, please consider donating.
             </p>
-            <Button className="mt-12  md:ml-0 py-[17px] text-[15px] w-40">
-              Donate Online
-            </Button>
+            <Link
+              href="https://midlandbible.churchcenter.com/giving/to/tbs"
+              target="_blank"
+            >
+              <Button className="mt-12  md:ml-0 py-[17px] text-[15px] w-40">
+                Donate Online
+              </Button>
+            </Link>
             <p className="mt-10 text-[15px] font-lexend">
               Donations made to The Bible Says are tax-deductible
             </p>

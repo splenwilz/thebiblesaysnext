@@ -6,6 +6,7 @@ import BibleComm from '../biblecomm'
 import NewsletterSignupSection from '@/components/NewsletterSignupSection'
 import FooterSection from '@/components/FooterSection'
 import CommModal from '../modal'
+import CommentaryLandingDataCopy from '../biblelanding copy'
 
 interface CommentaryProps {
   params: { book: string }
@@ -28,7 +29,8 @@ export default async function Commentary({
           <div className="w-full basis-auto sm:basis-1/2 lg:basis-2/3 flex flex-col">
             <BibleMenu bookid={book} />
             <CommModal bookid={book} />
-            <BibleLandingData bookid={book} />
+            {/* <BibleLandingData bookid={book} /> */}
+            <CommentaryLandingDataCopy bookid={book} />
           </div>
           <BibleComm bookid={book} />
         </div>
