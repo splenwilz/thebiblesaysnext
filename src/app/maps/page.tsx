@@ -13,9 +13,28 @@ import map6 from '@/assets/images/map/map6.jpg'
 import map7 from '@/assets/images/map/map7.jpg'
 import map8 from '@/assets/images/map/map8.jpg'
 import MapGrid from '@/core/MapGrid'
+import ImageGrid from '@/core/MapGrid'
+
+type StaticImageData = {
+  src: string
+  height: number
+  width: number
+}
 
 const Maps: React.FC = () => {
-  const images = [map1, map2, map3, map4, map5, map6, map7, map8]
+  // const images = [map1, map2, map3, map4, map5, map6, map7, map8]
+
+  const images = [
+    { src: '/assets/images/map/map1.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map2.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map3.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map4.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map5.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map6.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map7.jpg', height: 500, width: 500 },
+    { src: '/assets/images/map/map8.jpg', height: 500, width: 500 },
+  ]
+
   return (
     <>
       <div className="mx-auto max-w-[1440px] md:px-0 bg-white ">
@@ -28,7 +47,7 @@ const Maps: React.FC = () => {
         </h1>
       </div>
 
-      <MapGrid imageUrls={images} />
+      <ImageGrid imageUrls={images} />
 
       <NewsletterSignupSection
         className="px-7 lg:px-40 md:px-7 mt-28 mb:mt-0"
