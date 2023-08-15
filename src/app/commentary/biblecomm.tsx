@@ -9,7 +9,7 @@ import Map from '@/assets/icons/map.svg'
 import PlayArrow from '@/assets/icons/play_arrow.svg'
 import ViewTimeline from '@/assets/icons/view_timeline.svg'
 import Link from 'next/link'
-import { getBookName, splitScripture } from '@/helper/helper'
+import { DefinedBookName, getBookName, splitScripture } from '@/helper/helper'
 interface BibleCommBookProps {
   bookid: string
 }
@@ -51,7 +51,12 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
   const scriptureBook = bookid
     ? splitScripture(bookid.replace('%2B', '+'))?.book
     : ''
+  // New Implementation to target Wrong Naming Comnvection
+  const useScriptureBook = DefinedBookName(scriptureBook || '')
+
   const bookName = getBookName(scriptureBook || '')
+
+  const useBookName = getBookName(useScriptureBook || '')
   // const booknameShprt =
   const scriptureChap = bookid
     ? splitScripture(bookid.replace('%2B', '+'))?.chapter
@@ -66,13 +71,25 @@ const BibleCommBook: React.FC<BibleCommBookProps> = async ({ bookid }) => {
     ? bookid.toUpperCase().replace('+', '.').replace('%2B', '.')
     : 'GEN.1'
 
+  // New Implementation to target Wrong Naming Convection
   const usePassage = bookid
-    ? `${scriptureBook?.toUpperCase()}.${scriptureChap}`
+    ? `${useScriptureBook?.toUpperCase()}.${scriptureChap}`
     : bookAndChapter
 
+  // Old Implementatation
+  // const usePassage = bookid
+  // ? `${scriptureBook?.toUpperCase()}.${scriptureChap}`
+  // : bookAndChapter
+
+  // New Implementation
   const usePassageComm = scriptureVerse
-    ? `${bookName} ${scriptureVerse}`
+    ? `${useBookName} ${scriptureVerse}`
     : bookAndChapter
+
+  // Old Implementatation
+  // const usePassageComm = scriptureVerse
+  //   ? `${bookName} ${scriptureVerse}`
+  //   : bookAndChapter
 
   // To get Commentary / Bible Data
 

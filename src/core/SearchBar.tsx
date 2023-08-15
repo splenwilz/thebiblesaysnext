@@ -5,6 +5,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import axios, { AxiosResponse } from 'axios'
 import CommentarySearch from './CommentarySearch'
+import CommentarySearch2 from './CommentarySearch2'
 
 interface SearchBarProps {
   placeholder: string
@@ -39,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     const fetchData = async () => {
       try {
         const response: AxiosResponse<CommentaryPost[]> = await axios.get(
-          `https://thebiblesays.com/wp-json/tbs/v1/tbssearch?keyword=${query}`,
+          `https://13.51.172.229/wp-json/tbs/v1/tbssearch?keyword=${query}`,
         )
 
         setComRes(response.data)
@@ -90,6 +91,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
       console.log(filteredBook)
     }
   }
+  const handleOnSubmitSearch = () => {
+    console.log(searchValue)
+  }
   const handleSearchBlur = () => {
     // Delay the closing of the dropdown to allow time for link click event to be processed
     if (commRes) {
@@ -112,7 +116,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <>
-      <div className={`flex items-center mb-4 ${searchClassName}`}>
+      {/* <div className={`flex items-center mb-4 ${searchClassName}`}>
         <input
           type="text"
           placeholder={placeholder}
@@ -137,15 +141,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
             className={searchIconClassName || ' text-center h-6 w-6'}
           />
         </button>
-      </div>
+      </div> */}
 
-      <CommentarySearch
+      <CommentarySearch2
         onSubmit={handleSearchSubmit}
+        onSubmitSearch={handleOnSubmitSearch}
+        placeholder={placeholder}
         onBlur={handleSearchBlur}
         onFocus={handleSearchFocus}
         searchValue={searchValue}
+        searchClassName={searchClassName}
         formClass=""
-        inputClass="h-[41px] border-gray-300 ml-0 md:ml-2"
+        inputClass="h-[40px] border-gray-300 ml-0 md:ml-2"
       />
       {isSearching && (
         <div
@@ -167,7 +174,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 filteredBooks?.map((comm, index) => (
                   <Link
                     key={index}
-                    href={`./commentary/`}
+                    href={`./commentary/${comm.category_slug.replace(
+                      '-',
+                      '+',
+                    )}`}
                     className="block px-4 py-2 ml-1 mr-1 font-lexend text-[15px] text-gray-700 hover:bg-[#10101014] dark:hover:bg-thebiblesayswhite-8 dark:hover:text-gray-300"
                     role="menuitem"
                     // onClick={() => {

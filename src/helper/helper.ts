@@ -10,11 +10,15 @@ export function getBookName(name: string): string | undefined {
       return 'Genesis'
     case 'exo':
       return 'Exodus'
+    case 'exod':
+      return 'Exodus'
     case 'lev':
       return 'Leviticus'
     case 'num':
       return 'Numbers'
     case 'deu':
+      return 'Deuteronomy'
+    case 'deut':
       return 'Deuteronomy'
     case 'jos':
       return 'Joshua'
@@ -138,6 +142,210 @@ export function getBookName(name: string): string | undefined {
       return 'Jude'
     case 'rev':
       return 'Revelation'
+    default:
+      return undefined // Return undefined for unknown/invalid short forms
+  }
+}
+
+export function DefinedBookName(name: string): string | undefined {
+  switch (name.toLowerCase()) {
+    case 'gen':
+      return 'gen'
+    case 'exo':
+      return 'exo'
+    case 'exod':
+      return 'exo'
+
+    case 'lev':
+      return 'lev'
+    case 'num':
+      return 'num'
+    case 'deu':
+      return 'deu'
+    case 'deut':
+      return 'deu'
+    case 'deut':
+      return 'Deuteronomy'
+    case 'jos':
+      return 'jos'
+    case 'josh':
+      return 'jos'
+    case 'jdg':
+      return 'jdg'
+    case 'rut':
+      return 'rut'
+    case 'ruth':
+      return 'rut'
+    case '1sa':
+      return '1sa'
+    case '1sam':
+      return '1sa'
+    case '2sa':
+      return '2sa'
+    case '2sam':
+      return '2sa'
+    case '1ki':
+      return '1ki'
+    case '2ki':
+      return '2ki'
+    case '1ch':
+      return '1ch'
+    case '2ch':
+      return '2ch'
+    case 'ezr':
+      return 'ezr'
+    case 'neh':
+      return 'neh'
+    case 'est':
+      return 'est'
+    case 'job':
+      return 'Job'
+    case 'psa':
+      return 'psa'
+    case 'ps':
+      return 'psa'
+    case 'pro':
+      return 'pro'
+    case 'prov':
+      return 'pro'
+    case 'ecc':
+      return 'ecc'
+    case 'eccl':
+      return 'ecc'
+    case 'sng':
+      return 'sng'
+    case 'isa':
+      return 'isa'
+    case 'jer':
+      return 'jer'
+    case 'lam':
+      return 'lam'
+    case 'ezk':
+      return 'ezk'
+    case 'dan':
+      return 'dan'
+    case 'hos':
+      return 'hos'
+    case 'jol':
+      return 'jol'
+    case 'joel':
+      return 'jol'
+    case 'amo':
+      return 'amos'
+    case 'oba':
+      return 'oba'
+    case 'obad':
+      return 'oba'
+    case 'jonah':
+      return 'jonah'
+    case 'mic':
+      return 'mic'
+    case 'nam':
+      return 'nam'
+    case 'nam':
+      return 'nah'
+    case 'hab':
+      return 'hab'
+    case 'zep':
+      return 'zep'
+    case 'zep':
+      return 'zeph'
+    case 'hag':
+      return 'hag'
+    case 'zec':
+      return 'zec'
+    case 'zec':
+      return 'zech'
+    case 'mal':
+      return 'mal'
+    case 'mat':
+      return 'mat'
+    case 'matt':
+      return 'mat'
+    case 'mrk':
+      return 'mrk'
+    case 'mark':
+      return 'mrk'
+    case 'luk':
+      return 'luk'
+    case 'luke':
+      return 'luk'
+    case 'jhn':
+      return 'jhn'
+    case 'john':
+      return 'jhn'
+    case 'act':
+      return 'act'
+    case 'acts':
+      return 'act'
+    case 'rom':
+      return 'rom'
+    case '1co':
+      return '1 1co'
+    case '1cor':
+      return '1 1co'
+    case '2co':
+      return '2co'
+    case '2cor':
+      return '2co'
+    case 'gal':
+      return 'gal'
+    case 'eph':
+      return 'eph'
+    case 'php':
+      return 'php'
+    case 'phil':
+      return 'php'
+    case 'col':
+      return 'col'
+    case '1th':
+      return '1th'
+    case '1thess':
+      return '1th'
+    case '2thess':
+      return '2th'
+    case '1ti':
+      return '1ti'
+    case '1tim':
+      return '1ti'
+    case '2ti':
+      return '2ti'
+    case '2tim':
+      return '2ti'
+    case 'tit':
+      return 'tit'
+    case 'phm':
+      return 'phm'
+    case 'phm':
+      return 'phlm'
+    case 'heb':
+      return 'heb'
+    case 'jas':
+      return 'jas'
+    case '1pe':
+      return '1pe'
+    case '1pet':
+      return '1pe'
+    case '2pe':
+      return '2pe'
+    case '2pet':
+      return '2pe'
+    case '1jhn':
+      return '1jhn'
+    case '1john':
+      return '1jhn'
+    case '2jhn':
+      return '2jhn'
+    case '2john':
+      return '2jhn'
+    case '3jhn':
+      return '3jhn'
+    case '3john':
+      return '3jhn'
+    case 'jud':
+      return 'jud'
+    case 'rev':
+      return 'rev'
     default:
       return undefined // Return undefined for unknown/invalid short forms
   }

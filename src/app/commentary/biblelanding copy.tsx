@@ -110,7 +110,7 @@ const CommentaryLandingDataCopy: React.FC<CommentaryLandingDataProps> = ({
     const fetchData = async () => {
       try {
         const response: AxiosResponse<CommentaryPost[]> = await axios.get(
-          `https://www.thebiblesays.com/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassage}`,
+          `https://13.51.172.229/wp-json/tbs/v1/commentaries-by-passage-sorted?keyword=${usePassage}`,
         )
 
         setPassageData(response.data)
