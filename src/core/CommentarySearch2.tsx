@@ -67,6 +67,7 @@ const CommentarySearch2: React.FC<CommentarySearchProps> = ({
           <input
             type="search"
             id="default-search"
+            autoComplete="false"
             className={`w-72 px-4 py-3 text-white bg-thebiblesayswhite-8 focus:outline-none ${inputClass}`}
             placeholder={placeholder}
             required

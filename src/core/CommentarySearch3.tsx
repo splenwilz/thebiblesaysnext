@@ -66,6 +66,7 @@ const CommentarySearch3: React.FC<CommentarySearchProps> = ({
         <div className={`relative  ${searchClassName}`}>
           <input
             type="search"
+            autoComplete="false"
             id="default-search"
             className={`block p-2 h-11 pl-5  w-72 text-[15px] text-gray-900 bg-thebiblesayswhite-100 outline-none border border-gray-300 dark:bg-thebiblesaysblack-100 dark:border-thebiblesayswhite-8 dark:placeholder-gray-400 dark:text-white dark:focus:ring-thebiblesayswhite-40 dark:focus:border-thebiblesayswhite-40 ${inputClass}`}
             placeholder={placeholder}
