@@ -179,7 +179,10 @@ const BibleComm: React.FC<BibleCommProps> = async ({ book }) => {
     {
       label: 'Commentary',
       content: (
-        <div className="max-h-[700px] overflow-y-scroll ">
+        <div
+          className="max-h-[700px] overflow-y-scroll "
+          style={{ scrollbarWidth: 'none' }}
+        >
           {dataComm?.length === 0 ? (
             <div className="  mb-10">
               <div className=" border border-t-0 border-l-0 border-r-0 border-b-[#10101029] pb-5">

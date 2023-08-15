@@ -174,7 +174,10 @@ const TimelineCLient: React.FC<TimelineCLientProps> = ({ timelineslug }) => {
           <h6 className="font-lexend font-extrabold text-xl sm:text-2xl text-center pb-8 mt-8">
             Biblical Overview
           </h6>
-          <div className="h-[500px] overflow-y-scroll">
+          <div
+            className="h-[500px] overflow-y-scroll"
+            style={{ scrollbarWidth: 'none' }}
+          >
             {renderTimelineItems()}
           </div>
         </div>
@@ -190,7 +193,10 @@ const TimelineCLient: React.FC<TimelineCLientProps> = ({ timelineslug }) => {
                 <h1 className="font-lexend font-extrabold text-4xl">
                   {TIMELINE_ITEMS[currentItem].Headline}
                 </h1>
-                <p className="font-serifpro leading-6 mt-5 h-[390px] overflow-y-scroll">
+                <p
+                  className="font-serifpro leading-6 mt-5 h-[390px] overflow-y-scroll"
+                  style={{ scrollbarWidth: 'none' }}
+                >
                   {TIMELINE_ITEMS[currentItem].Text}
                 </p>
               </>

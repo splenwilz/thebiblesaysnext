@@ -80,7 +80,10 @@ const BibleLandingDataCopy: React.FC<BibleLandingDataProps> = ({ book }) => {
   // }
 
   return (
-    <div className="max-h-[700px] overflow-y-scroll">
+    <div
+      className="max-h-[700px] overflow-y-scroll"
+      style={{ scrollbarWidth: 'none' }}
+    >
       <div className="flex flex-col m-10 pr-0 lg:pr-20 ">
         <div className="">
           {/* 

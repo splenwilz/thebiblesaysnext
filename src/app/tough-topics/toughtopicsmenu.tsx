@@ -211,7 +211,10 @@ const ToughTopicsMenu: React.FC = () => {
               Books
             </div>
             <div className="border border-t-0 border-l-0 border-r-0 dark:border-thebiblesayswhite-8"></div>
-            <div className="max-h-64 overflow-y-scroll">
+            <div
+              className="max-h-64 overflow-y-scroll"
+              style={{ scrollbarWidth: 'none' }}
+            >
               <div>
                 {filteredPost.map((topic, index) => (
                   <Link

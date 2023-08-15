@@ -198,7 +198,10 @@ const CommModal: React.FC<CommModalProps> = ({ bookid }) => {
             onClick={handleModalClose}
           />
         </div>
-        <div className="h-96 overflow-y-scroll">
+        <div
+          className="h-96 overflow-y-scroll"
+          style={{ scrollbarWidth: 'none' }}
+        >
           {context ? (
             <div className=" modalcontent">
               {bookThemeDetails?.chapter_context === '' ? (
