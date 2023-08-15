@@ -21,6 +21,11 @@ export default function NewsLetter({}: Props) {
     width: 0,
     height: 0,
   })
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   useEffect(() => {
     const { innerWidth: width, innerHeight: height } = window
     setDimensions({
@@ -28,6 +33,20 @@ export default function NewsLetter({}: Props) {
       height,
     })
   }, [])
+
+  useEffect(() => {
+    if (showConfetti) {
+      scrollToTop()
+    }
+  }, [showConfetti])
+
+  // useEffect(() => {
+  //   const { innerWidth: width, innerHeight: height } = window
+  //   setDimensions({
+  //     width,
+  //     height,
+  //   })
+  // }, [])
 
   return (
     <>
