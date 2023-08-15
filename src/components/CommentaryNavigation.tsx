@@ -12,6 +12,8 @@ import Image from 'next/image'
 
 import DkLogo from '@/assets/images/logo/thebiblesays.svg'
 import LtLogo from '@/assets/images/logo/thebiblesaysdarkmode.svg'
+import SearchBar from '@/core/SearchBar'
+import SearchBar2 from '@/core/SearchBar2'
 
 //   logobg: 'url("./src/assets/images/logo/thebiblesays.svg")',
 //   logobgd: 'url("./src/assets/images/logo/thebiblesaysdarkmode.svg")',
@@ -54,9 +56,21 @@ const CommentaryNavigation = () => {
                     {/* <div className="dark:bg-logobgd bg-logobg bg-cover w-32 h-10"></div> */}
                   </Link>
                 </div>
+                <div className="absolute inset-y-0 right-0 flex  items-center ">
+                  <div className="hidden md:block">
+                    <SearchBar2
+                      placeholder="Search the commentary"
+                      // onSearch={onSearch}
+                      inputClassName="px-4 py-3 text-white bg-thebiblesayswhite-8 focus:outline-none w-full md:w-72"
+                      searchClassName={
+                        'px-2'
+                        // 'px-16 md:px-0 pl-16 min-[392px]:pl-28 min-[430px]:pl:0  min-[430px]:px-16'
+                      }
+                    />
+                  </div>
 
-                <div className="absolute inset-y-0 right-0 flex items-center ">
-                  <CommentarySearch
+                  <div className=" ">
+                    {/* <CommentarySearch
                     onSubmit={handleSearchSubmit}
                     inputClass=""
                     formClass="hidden md:block"
@@ -67,27 +81,37 @@ const CommentaryNavigation = () => {
                     onFocus={() => {
                       console.log('Focus')
                     }}
-                  />
+                  /> */}
+                    {/* <SearchBar2
+                    placeholder="Search the commentary"
+                    // onSearch={onSearch}
+                    inputClassName="px-4 py-3 text-white bg-thebiblesayswhite-8 focus:outline-none w-full md:w-72"
+                    searchClassName={
+                      'px-2'
+                      // 'px-16 md:px-0 pl-16 min-[392px]:pl-28 min-[430px]:pl:0  min-[430px]:px-16'
+                    }
+                  /> */}
 
-                  {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400  hover:text-black ">
-                    <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <div className="mr-2 p-2 border border-gray-300 ">
-                        <XMarkIcon
-                          className="block h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    ) : (
-                      <div className="mr-2 p-2 border border-gray-300 ">
-                        <Bars3Icon
-                          className="block h-6 w-6 "
-                          aria-hidden="true"
-                        />
-                      </div>
-                    )}
-                  </Disclosure.Button>
+                    {/* Mobile menu button */}
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400  hover:text-black ">
+                      <span className="sr-only">Open main menu</span>
+                      {open ? (
+                        <div className="mr-2 p-2 border border-gray-300 ">
+                          <XMarkIcon
+                            className="block h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      ) : (
+                        <div className="mr-2 p-2 border border-gray-300 ">
+                          <Bars3Icon
+                            className="block h-6 w-6 "
+                            aria-hidden="true"
+                          />
+                        </div>
+                      )}
+                    </Disclosure.Button>
+                  </div>
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"></div>

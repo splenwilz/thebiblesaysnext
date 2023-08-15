@@ -91,9 +91,30 @@ const SearchBar: React.FC<SearchBarProps> = ({
       console.log(filteredBook)
     }
   }
+  // const handleOnSubmitSearch = () => {
+  //   console.log(searchValue)
+  // }
+
   const handleOnSubmitSearch = () => {
     console.log(searchValue)
+
+    // Check if there are filteredBooks and if at least one result is available
+    if (filteredBooks && filteredBooks.length > 0) {
+      // Get the first link element
+      const firstLink = document.querySelector('.search-result-link')
+
+      if (firstLink) {
+        // Create and dispatch a click event
+        const clickEvent = new MouseEvent('click', {
+          bubbles: true,
+          cancelable: true,
+          view: window,
+        })
+        firstLink.dispatchEvent(clickEvent)
+      }
+    }
   }
+
   const handleSearchBlur = () => {
     // Delay the closing of the dropdown to allow time for link click event to be processed
     if (commRes) {
@@ -170,7 +191,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
           <div className="max-h-64 overflow-y-scroll w-full">
             <div>
-              {filteredBooks &&
+              {/* {filteredBooks &&
                 filteredBooks?.map((comm, index) => (
                   <Link
                     key={index}
@@ -184,6 +205,23 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     //   setSearchValue(book.name)
                     //   // setUsAvailChap(book.name)
                     // }}
+                  >
+                    {comm.post_title}
+                  </Link>
+                ))} */}
+
+              {filteredBooks &&
+                filteredBooks?.map((comm, index) => (
+                  <Link
+                    key={index}
+                    href={`./commentary/${comm.category_slug.replace(
+                      '-',
+                      '+',
+                    )}`}
+                    className={`block px-4 py-2 ml-1 mr-1 font-lexend text-[15px] ${
+                      index === 0 ? 'search-result-link' : ''
+                    } text-gray-700 hover:bg-[#10101014] dark:hover:bg-thebiblesayswhite-8 dark:hover:text-gray-300`}
+                    role="menuitem"
                   >
                     {comm.post_title}
                   </Link>
