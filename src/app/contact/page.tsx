@@ -4,6 +4,7 @@ import contactbg from '@/assets/images/contact/contactbg.png'
 import Image from 'next/image'
 import NavigationWhiteScreen from '@/components/NavigationWhiteScreen'
 import FooterSection from '@/components/FooterSection'
+import Button from '@/core/Button'
 
 const Contact: React.FC = () => {
   return (
@@ -24,14 +25,14 @@ const Contact: React.FC = () => {
               <div className="flex flex-row gap-4">
                 <input
                   type="text"
-                  name=""
+                  name="firstname"
                   id=""
                   className="px-3 py-3 border border-[#10101029] text-[15px] w-full font-lexend font-medium focus:outline-none"
                   placeholder="First Name"
                 />
                 <input
                   type="text"
-                  name=""
+                  name="lastname"
                   id=""
                   className="px-3 py-3 border border-[#10101029] text-[15px] w-full font-lexend font-medium  focus:outline-none"
                   placeholder="Last Name"
@@ -40,7 +41,7 @@ const Contact: React.FC = () => {
               <div className="mt-5">
                 <input
                   type="email"
-                  name=""
+                  name="email"
                   id=""
                   className="px-3 py-3 border border-[#10101029] text-[15px] w-full font-lexend font-medium  focus:outline-none"
                   placeholder="Email"
@@ -48,13 +49,18 @@ const Contact: React.FC = () => {
               </div>
               <div className="mt-5">
                 <textarea
-                  name=""
+                  name="message"
                   id=""
                   className="px-3 py-3 border border-[#10101029] text-[15px] w-full font-lexend font-medium  focus:outline-none"
                   placeholder="Message"
                   rows={5}
                   cols={1}
                 ></textarea>
+              </div>
+              <div className="mt-5 flex flex-row justify-end">
+                <Button className=" md:ml-0 py-[17px] text-[15px] w-fit">
+                  Send Message
+                </Button>
               </div>
             </form>
             <div className="bg-[#5a585829] h-[1.5px] px-2 lg:px-10 w-full mt-10 mb-10"></div>

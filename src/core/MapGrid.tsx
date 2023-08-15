@@ -60,7 +60,7 @@ type ImageData = {
 }
 
 interface ImageGridProps {
-  imageUrls: Array<string | ImageData>
+  imageUrls: Array<string>
 }
 
 const ImageGrid: React.FC<ImageGridProps> = ({ imageUrls }) => {
@@ -79,10 +79,10 @@ const ImageGrid: React.FC<ImageGridProps> = ({ imageUrls }) => {
       {imageUrls.map((imageUrl, index) => (
         <div key={index} className="">
           <Image
-            src={typeof imageUrl === 'string' ? imageUrl : imageUrl.src}
+            src={typeof imageUrl === 'string' ? imageUrl : imageUrl}
             alt=""
-            width={typeof imageUrl === 'string' ? undefined : imageUrl.width}
-            height={typeof imageUrl === 'string' ? undefined : imageUrl.height}
+            width={500}
+            height={500}
             className="w-full cursor-pointer hover:backdrop-blur-lg"
             onClick={() => handleImageClick(imageUrl)}
           />
